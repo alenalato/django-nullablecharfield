@@ -1,5 +1,4 @@
 from django.forms.fields import CharField
-from django.utils.encoding import smart_str
 from nullablecharfield.widgets import NullableTextWidget
 
 class CharNullField(CharField):
@@ -16,7 +15,4 @@ class CharNullField(CharField):
     def to_python(self, value):
         if value is None:
             return None
-        return smart_str(value)
-
-    def get_db_prep_value(self, value):
-        return value
+        return super(CharNullField, self).to_python(value)
